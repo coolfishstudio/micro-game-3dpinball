@@ -9,6 +9,8 @@ var debug = require('debug')('fortune:server');
 var http = require('http');
 var config = require('../config');
 
+var log = require('log4js').getLogger('www');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -69,11 +71,11 @@ function onError(error) {
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
+            log.error(bind + ' requires elevated privileges');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
+            log.error(bind + ' is already in use');
             process.exit(1);
             break;
         default:
@@ -90,6 +92,6 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    console.info('Listening on ' + bind);
+    log.info('Listening on ' + bind);
     debug('Listening on ' + bind);
 }

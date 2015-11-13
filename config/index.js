@@ -3,6 +3,8 @@
 var debug = require('debug')('server:log');
 debug.log = console.log.bind(console);
 
+var log = require('log4js').getLogger('config');
+
 var nodeEnv = (function ()
 {
     var env = process.env.NODE_ENV;
@@ -23,10 +25,10 @@ try {
     config = require('./config_current.js');
     config.nodeEnv = nodeEnv;
 } catch (e) {
-    console.error('ERROR: Config file doesn\'t exist or incorrect');
+    log.error('ERROR: Config file doesn\'t exist or incorrect');
     process.exit(1);
 }
 
-console.log('Server NODE_ENV: %s', nodeEnv);
+log.info('Server NODE_ENV: %s', nodeEnv);
 
 module.exports = config;
