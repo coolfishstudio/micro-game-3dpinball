@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+module.exports = function (app)
+{
+    //用来检测运行是否成功
+    app.get('/ping', function (req, res)
+    {
+        res.end('OK');
+    });
 
-module.exports = router;
+    //标签类型请求转发
+    app.use('/api/tag', require('../lib/tag/router'));
+
+    //todo 错误拦截
+};
